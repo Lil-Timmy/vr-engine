@@ -1,0 +1,7 @@
+[
+  {
+    "directory": "D:/Code/vr-engine",
+    "command": "g++ -Iinclude -Llib -c src/.cpp",
+    "file": ".cpp"
+  }
+]

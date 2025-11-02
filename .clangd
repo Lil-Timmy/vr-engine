@@ -1,0 +1,2 @@
+CompileFlags:
+  Add: [-Iinclude, -Llib, -Weverything, -Wno-c++98-compat, -Wno-newline-eof, -Wno-unsafe-buffer-usage]

@@ -1,0 +1,15 @@
+D:/Code/vr-engine/build/deps/GLFW/glfw-3.4/build/CMakeFiles/uninstall.dir
+D:/Code/vr-engine/build/deps/GLFW/glfw-3.4/build/CMakeFiles/edit_cache.dir
+D:/Code/vr-engine/build/deps/GLFW/glfw-3.4/build/CMakeFiles/rebuild_cache.dir
+D:/Code/vr-engine/build/deps/GLFW/glfw-3.4/build/CMakeFiles/list_install_components.dir
+D:/Code/vr-engine/build/deps/GLFW/glfw-3.4/build/CMakeFiles/install.dir
+D:/Code/vr-engine/build/deps/GLFW/glfw-3.4/build/CMakeFiles/install/local.dir
+D:/Code/vr-engine/build/deps/GLFW/glfw-3.4/build/CMakeFiles/install/strip.dir
+D:/Code/vr-engine/build/deps/GLFW/glfw-3.4/build/src/CMakeFiles/glfw.dir
+D:/Code/vr-engine/build/deps/GLFW/glfw-3.4/build/src/CMakeFiles/update_mappings.dir
+D:/Code/vr-engine/build/deps/GLFW/glfw-3.4/build/src/CMakeFiles/edit_cache.dir
+D:/Code/vr-engine/build/deps/GLFW/glfw-3.4/build/src/CMakeFiles/rebuild_cache.dir
+D:/Code/vr-engine/build/deps/GLFW/glfw-3.4/build/src/CMakeFiles/list_install_components.dir
+D:/Code/vr-engine/build/deps/GLFW/glfw-3.4/build/src/CMakeFiles/install.dir
+D:/Code/vr-engine/build/deps/GLFW/glfw-3.4/build/src/CMakeFiles/install/local.dir
+D:/Code/vr-engine/build/deps/GLFW/glfw-3.4/build/src/CMakeFiles/install/strip.dir
