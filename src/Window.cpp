@@ -131,8 +131,6 @@ namespace Engine
         glfwInit(); // TODO: Only init/terminate if first/last usage, also make a glfw & opengl wrapper.
         
         glfwWindowHint(GLFW_VISIBLE                , GLFW_FALSE              );
-        glfwWindowHint(GLFW_POSITION_X             , _settings.position.x    );
-        glfwWindowHint(GLFW_POSITION_Y             , _settings.position.y    );
         glfwWindowHint(GLFW_RESIZABLE              , _settings.resizable     );
         glfwWindowHint(GLFW_DECORATED              , _settings.decorated     );
         glfwWindowHint(GLFW_FLOATING               , _settings.alwaysOnTop   );
@@ -149,10 +147,10 @@ namespace Engine
         Title     (_settings.title     );
         Position  (_settings.position  );
         Size      (_settings.size      );
-        Focused   (_settings.focused   );
         Minimized (_settings.minimized );
         Maximized (_settings.maximized );
         Fullscreen(_settings.fullscreen);
+        Focused   (_settings.focused   );
         Visible   (_settings.visible   );
         VSync     (_settings.vSync     );
         

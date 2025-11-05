@@ -1,8 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"D:/Code/vr-engine/build/deps/GLFW/glfw-3.4/build/cmake_install.cmake",
-		"D:/Code/vr-engine/build/deps/GLFW/glfw-3.4/build/src/cmake_install.cmake"
-	],
-	"Parallel" : false
-}

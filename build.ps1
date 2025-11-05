@@ -1,23 +1,35 @@
-# Compile the c++ files into object files.
-foreach ($file in Get-ChildItem src/ -Filter *.cpp)
+param
+(
+    [string]$config
+)
+
+
+function Error($message)
 {
-    g++ -c $file.FullName -Iinclude -O3 -flto -o ("build/objects/" + $file.BaseName + ".o")
-    
     if ($LASTEXITCODE -ne 0)
     {
-        Write-Host "Binary compilation for $($file.Name) failed."
+        Write-Host "$message" -ForegroundColor Red
         exit $LASTEXITCODE
     }
 }
 
-# Link the c++ objects and libraries and build the executable.
-g++ build/objects/*.o -Llib -lglfw3 -lopengl32 -lgdi32 -s -o build/build.exe
 
-if ($LASTEXITCODE -ne 0)
+if (-not $config)
 {
-    Write-Host "Failed to link libraries"
-    exit $LASTEXITCODE
+    Write-Host "No config was specified. (Debug, Release)" -ForegroundColor Red
+    exit 1
+}
+elseif ($config -ne "Debug" -and $config -ne "Release")
+{
+    Write-Host "$config config not supported. (Debug, Release)" -ForegroundColor Red
+    exit 1
 }
 
-# If all compiled, run the project.
-./build/build.exe
+cmake -B ./build
+Error "Project failed to build."
+
+cmake --build ./build --config $config
+Error "Project failed to link."
+
+& "./build/$config/vr-engine"
+Error "Project failed to run."

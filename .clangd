@@ -1,2 +1,2 @@
 CompileFlags:
-  Add: [-std=c++20, -Iinclude, -Llib, -Weverything, -Wno-c++98-compat, -Wno-newline-eof, -Wno-unsafe-buffer-usage, -Wno-pre-c++20-compat-pedantic]
+  Add: [-std=c++20, -Iinclude, -Llib, -Weverything, -Wno-newline-eof]

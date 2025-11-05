@@ -1,7 +1,7 @@
 [
   {
     "directory": "D:/Code/vr-engine",
-    "command": "g++ -std=c++20 -Iinclude -Llib -c src/.cpp",
+    "command": "g++ -std=c++20 -Ibuild/_deps/glfw-src/include -Iinclude -Llib -c src/.cpp",
     "file": ".cpp"
   }
 ]
