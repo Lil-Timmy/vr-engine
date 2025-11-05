@@ -12,25 +12,25 @@
     fvec2::fvec2(const f32 _xy              ) : x(_xy), y(_xy) { }
     fvec2::fvec2(const f32 _x , const f32 _y) : x(_x ), y(_y ) { }
     
-    fvec2 fvec2::operator+ (const fvec2& _other) const { return fvec2(x + _other.x, y + _other.y); }
-    fvec2 fvec2::operator+=(const fvec2& _other) const { return fvec2(x + _other.x, y + _other.y); }
-    fvec2 fvec2::operator+ (const f32&   _other) const { return fvec2(x + _other  , y + _other  ); }
-    fvec2 fvec2::operator+=(const f32&   _other) const { return fvec2(x + _other  , y + _other  ); }
+    fvec2  fvec2::operator+ (const fvec2& _other) const { return fvec2(x +  _other.x, y +  _other.y);              }
+    fvec2& fvec2::operator+=(const fvec2& _other)       {              x += _other.x; y += _other.y; return *this; }
+    fvec2  fvec2::operator+ (const f32&   _other) const { return fvec2(x +  _other,   y +  _other);                }
+    fvec2& fvec2::operator+=(const f32&   _other)       {              x += _other;   y += _other;   return *this; }
     
-    fvec2 fvec2::operator- (const fvec2& _other) const { return fvec2(x - _other.x, y - _other.y); }
-    fvec2 fvec2::operator-=(const fvec2& _other) const { return fvec2(x - _other.x, y - _other.y); }
-    fvec2 fvec2::operator- (const f32&   _other) const { return fvec2(x - _other  , y - _other  ); }
-    fvec2 fvec2::operator-=(const f32&   _other) const { return fvec2(x - _other  , y - _other  ); }
+    fvec2  fvec2::operator- (const fvec2& _other) const { return fvec2(x -  _other.x, y -  _other.y);              }
+    fvec2& fvec2::operator-=(const fvec2& _other)       {              x -= _other.x; y -= _other.y; return *this; }
+    fvec2  fvec2::operator- (const f32&   _other) const { return fvec2(x -  _other,   y -  _other);                }
+    fvec2& fvec2::operator-=(const f32&   _other)       {              x -= _other;   y -= _other;   return *this; }
     
-    fvec2 fvec2::operator* (const fvec2& _other) const { return fvec2(x * _other.x, y * _other.y); }
-    fvec2 fvec2::operator*=(const fvec2& _other) const { return fvec2(x * _other.x, y * _other.y); }
-    fvec2 fvec2::operator* (const f32&   _other) const { return fvec2(x * _other  , y * _other  ); }
-    fvec2 fvec2::operator*=(const f32&   _other) const { return fvec2(x * _other  , y * _other  ); }
+    fvec2  fvec2::operator* (const fvec2& _other) const { return fvec2(x *  _other.x, y *  _other.y);              }
+    fvec2& fvec2::operator*=(const fvec2& _other)       {              x *= _other.x; y *= _other.y; return *this; }
+    fvec2  fvec2::operator* (const f32&   _other) const { return fvec2(x *  _other,   y *  _other);                }
+    fvec2& fvec2::operator*=(const f32&   _other)       {              x *= _other;   y *= _other;   return *this; }
     
-    fvec2 fvec2::operator/ (const fvec2& _other) const { return fvec2(x / _other.x, y / _other.y); }
-    fvec2 fvec2::operator/=(const fvec2& _other) const { return fvec2(x / _other.x, y / _other.y); }
-    fvec2 fvec2::operator/ (const f32&   _other) const { return fvec2(x / _other  , y / _other  ); }
-    fvec2 fvec2::operator/=(const f32&   _other) const { return fvec2(x / _other  , y / _other  ); }
+    fvec2  fvec2::operator/ (const fvec2& _other) const { return fvec2(x /  _other.x, y /  _other.y);              }
+    fvec2& fvec2::operator/=(const fvec2& _other)       {              x /= _other.x; y /= _other.y; return *this; }
+    fvec2  fvec2::operator/ (const f32&   _other) const { return fvec2(x /  _other,   y /  _other);                }
+    fvec2& fvec2::operator/=(const f32&   _other)       {              x /= _other;   y /= _other;   return *this; }
 #pragma endregion fvec2
 
 #pragma region fvec3

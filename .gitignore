@@ -30,3 +30,17 @@
 *.exe
 *.out
 *.app
+*.ps1
+
+lib/
+build/
+
+include/GLFW
+
+LICENSE
+README.md
+compile_commands.json
+.clangd
+.gitattributes
+.gitignore
+.cache/

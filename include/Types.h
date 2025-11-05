@@ -6,8 +6,6 @@
 
 
 
-
-
 using i08 = int8_t;
 using i16 = int16_t;
 using i32 = int32_t;
@@ -21,6 +19,13 @@ using u64 = uint64_t;
 using f32 = float;
 using d64 = double;
 
+using ichar08 = char;
+using ichar16 = char16_t;
+using ichar32 = char32_t;
+
+using uchar08 = unsigned char;
+
+#pragma clang diagnostic ignored "-Wunused-macros"
 #define i08MIN INT8_MIN;
 #define i16MIN INT16_MIN;
 #define i32MIN INT32_MIN;
@@ -35,8 +40,10 @@ using d64 = double;
 #define u16MAX UINT16_MAX;
 #define u32MAX UINT32_MAX;
 #define u64MAX UINT64_MAX;
+#pragma clang diagnostic push
 
 using str = std::string;
+
 
 
 struct fvec2
@@ -48,25 +55,25 @@ struct fvec2
     fvec2(const f32 _xy              );
     fvec2(const f32 _x , const f32 _y);
     
-    fvec2 operator+ (const fvec2& _other) const;
-    fvec2 operator+=(const fvec2& _other) const;
-    fvec2 operator+ (const f32&   _other) const;
-    fvec2 operator+=(const f32&   _other) const;
+    fvec2  operator+ (const fvec2& _other) const;
+    fvec2& operator+=(const fvec2& _other);
+    fvec2  operator+ (const f32&   _other) const;
+    fvec2& operator+=(const f32&   _other);
     
-    fvec2 operator- (const fvec2& _other) const;
-    fvec2 operator-=(const fvec2& _other) const;
-    fvec2 operator- (const f32&   _other) const;
-    fvec2 operator-=(const f32&   _other) const;
+    fvec2  operator- (const fvec2& _other) const;
+    fvec2& operator-=(const fvec2& _other);
+    fvec2  operator- (const f32&   _other) const;
+    fvec2& operator-=(const f32&   _other);
     
-    fvec2 operator* (const fvec2& _other) const;
-    fvec2 operator*=(const fvec2& _other) const;
-    fvec2 operator* (const f32&   _other) const;
-    fvec2 operator*=(const f32&   _other) const;
+    fvec2  operator* (const fvec2& _other) const;
+    fvec2& operator*=(const fvec2& _other);
+    fvec2  operator* (const f32&   _other) const;
+    fvec2& operator*=(const f32&   _other);
     
-    fvec2 operator/ (const fvec2& _other) const;
-    fvec2 operator/=(const fvec2& _other) const;
-    fvec2 operator/ (const f32&   _other) const;
-    fvec2 operator/=(const f32&   _other) const;
+    fvec2  operator/ (const fvec2& _other) const;
+    fvec2& operator/=(const fvec2& _other);
+    fvec2  operator/ (const f32&   _other) const;
+    fvec2& operator/=(const f32&   _other);
 };
 struct fvec3
 {

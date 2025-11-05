@@ -9,22 +9,22 @@
 
 namespace Engine
 {
-    str   Window::Title     () { return title;      } void Window::Title     (const str   _value)
+    const str&   Window::Title     () { return title;      } void Window::Title    (const str&  _value)
     {
         title      = _value;
         glfwSetWindowTitle(handle, title.c_str());
     }
-    ivec2 Window::Position  () { return position;   } void Window::Position  (const ivec2 _value)
+    const ivec2 Window::Position  () { return position;   } void Window::Position  (const ivec2 _value)
     {
         position   = _value;
         glfwSetWindowPos(handle, position.x, position.y);
     }
-    uvec2 Window::Size      () { return size;       } void Window::Size      (const uvec2 _value)
+    const uvec2 Window::Size      () { return size;       } void Window::Size      (const uvec2 _value)
     {
         size       = _value;
         glfwSetWindowSize(handle, i32(size.x), i32(size.y));
     }
-    bool  Window::Minimized () { return minimized;  } void Window::Minimized (const bool  _value)
+          bool  Window::Minimized () { return minimized;  } void Window::Minimized (const bool  _value)
     {
         minimized  =  _value;
         
@@ -32,15 +32,15 @@ namespace Engine
             glfwIconifyWindow(handle):
             glfwRestoreWindow(handle);
     }
-    bool  Window::Maximized () { return maximized;  } void Window::Maximized (const bool  _value)
+          bool  Window::Maximized () { return maximized;  } void Window::Maximized (const bool  _value)
     {
         maximized  =  _value;
         
         maximized ?
-            glfwIconifyWindow(handle):
-            glfwRestoreWindow(handle);
+            glfwMaximizeWindow(handle):
+            glfwRestoreWindow (handle);
     }
-    bool  Window::Fullscreen() { return fullscreen; } void Window::Fullscreen(const bool  _value)
+          bool  Window::Fullscreen() { return fullscreen; } void Window::Fullscreen(const bool  _value)
     {
         fullscreen = _value;
         
@@ -86,15 +86,13 @@ namespace Engine
             glfwSetWindowMonitor(handle, nullptr     , prevPosition.x, prevPosition.y, i32(prevSize.x), i32(prevSize.y), GLFW_DONT_CARE);
         }
     }
-    bool  Window::Focused   () { return focused;    } void Window::Focused   (const bool  _value)
+          bool  Window::Focused   () { return focused;    } void Window::Focused   (const bool  _value)
     {
-        maximized  =  _value;
+        focused  =  _value;
         
-        maximized ?
-            glfwIconifyWindow(handle):
-            glfwRestoreWindow(handle);
+        if (focused) glfwFocusWindow(handle);
     }
-    bool  Window::Visible   () { return visible;    } void Window::Visible   (const bool  _value)
+          bool  Window::Visible   () { return visible;    } void Window::Visible   (const bool  _value)
     {
         visible    = _value;
         
@@ -102,65 +100,61 @@ namespace Engine
             glfwShowWindow(handle):
             glfwHideWindow(handle);
     }
-    u32   Window::VSync     () { return vSync;      } void Window::VSync     (const u32   _value)
+          u32   Window::VSync     () { return vSync;      } void Window::VSync     (const u32   _value)
     {
         vSync     = _value;
         
         glfwSwapInterval(i32(vSync));
     }
-    bool  Window::Closed    () { return closed;     } void Window::Closed    (const bool  _value)
+          bool  Window::Closed    () { return closed;     } void Window::Closed    (const bool  _value)
     {
         closed    = _value;
         
         glfwSetWindowShouldClose(handle, closed);
     }
     
-    Window::Window
-    (
-        const str   _title         ,
-        const ivec2 _position      ,
-        const uvec2 _size          ,
-        const bool  _minimized     ,
-        const bool  _maximized     ,
-        const bool  _fullscreen    ,
-        const bool  _focused       ,
-        const bool  _visible       ,
-        const u32   _vSync         ,
-        const bool  _resizable     ,
-        const bool  _decorated     ,
-        const bool  _alwaysOnTop   ,
-        const bool  _centerCursor  ,
-        const bool  _transparent   ,
-        const bool  _focusOnVisible,
-        const bool  _ignoreCursor
-    )
+          bool                  Window::KeyPressed    (const int _key   ) { return pressedKeys    .find(_key   ) != pressedKeys    .end(); }
+          bool                  Window::KeyHeld       (const int _key   ) { return heldKeys       .find(_key   ) != heldKeys       .end(); }
+          bool                  Window::KeyReleased   (const int _key   ) { return releasedkeys   .find(_key   ) != releasedkeys   .end(); }
+    const std::vector<ichar32>& Window::PressedChars  (                 ) { return pressedChars;                                           }
+    
+          bool                  Window::ButtonPressed (const int _button) { return pressedButtons .find(_button) != pressedButtons .end(); }
+          bool                  Window::ButtonHeld    (const int _button) { return heldButtons    .find(_button) != heldButtons    .end(); }
+          bool                  Window::ButtonReleased(const int _button) { return releasedButtons.find(_button) != releasedButtons.end(); }
+          i32                   Window::ScrollWheel   (                 ) { return scrollWheel;                                            }
+          ivec2                 Window::CursorPosition(                 ) { return cursorPosition;                                         }
+    
+    const std::vector<str    >& Window::DroppedFiles  (                 ) { return droppedFiles;                                           }
+    
+    Window::Window(const WindowSettings _settings)
     {
         glfwInit(); // TODO: Only init/terminate if first/last usage, also make a glfw & opengl wrapper.
         
+        glfwWindowHint(GLFW_VISIBLE                , GLFW_FALSE              );
+        glfwWindowHint(GLFW_POSITION_X             , _settings.position.x    );
+        glfwWindowHint(GLFW_POSITION_Y             , _settings.position.y    );
+        glfwWindowHint(GLFW_RESIZABLE              , _settings.resizable     );
+        glfwWindowHint(GLFW_DECORATED              , _settings.decorated     );
+        glfwWindowHint(GLFW_FLOATING               , _settings.alwaysOnTop   );
+        glfwWindowHint(GLFW_CENTER_CURSOR          , _settings.centerCursor  );
+        glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, _settings.transparent   );
+        glfwWindowHint(GLFW_FOCUS_ON_SHOW          , _settings.focusOnVisible);
+        glfwWindowHint(GLFW_MOUSE_PASSTHROUGH      , _settings.ignoreCursor  );
         
-        glfwWindowHint(GLFW_VISIBLE                , GLFW_FALSE     );
-        glfwWindowHint(GLFW_RESIZABLE              , _resizable     );
-        glfwWindowHint(GLFW_DECORATED              , _decorated     );
-        glfwWindowHint(GLFW_FLOATING               , _alwaysOnTop   );
-        glfwWindowHint(GLFW_CENTER_CURSOR          , _centerCursor  );
-        glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, _transparent   );
-        glfwWindowHint(GLFW_FOCUS_ON_SHOW          , _focusOnVisible);
-        glfwWindowHint(GLFW_MOUSE_PASSTHROUGH      , _ignoreCursor  );
-        
-        handle = glfwCreateWindow(1, 1, "", nullptr, nullptr);
+        handle = glfwCreateWindow(i32(_settings.size.x), i32(_settings.size.y), "", nullptr, nullptr);
         
         glfwSetWindowUserPointer(handle, this);
         glfwMakeContextCurrent  (handle      );
         
-        Title     (_title     );
-        Position  (_position  );
-        Size      (_size      );
-        Focused   (_focused   );
-        Minimized (_minimized );
-        Maximized (_maximized );
-        Fullscreen(_fullscreen);
-        Visible   (_visible   );
-        VSync     (_vSync     );
+        Title     (_settings.title     );
+        Position  (_settings.position  );
+        Size      (_settings.size      );
+        Focused   (_settings.focused   );
+        Minimized (_settings.minimized );
+        Maximized (_settings.maximized );
+        Fullscreen(_settings.fullscreen);
+        Visible   (_settings.visible   );
+        VSync     (_settings.vSync     );
         
         glfwSetWindowPosCallback     (handle, PositionCallback);
         glfwSetWindowSizeCallback    (handle, ResizeCallback  );
@@ -169,25 +163,36 @@ namespace Engine
         glfwSetWindowIconifyCallback (handle, MinimizeCallback);
         glfwSetWindowMaximizeCallback(handle, MaximizeCallback);
         glfwSetKeyCallback           (handle, KeyCallback     );
-        glfwSetCharModsCallback      (handle, CharCallback    );
+        glfwSetCharCallback          (handle, CharCallback    );
         glfwSetMouseButtonCallback   (handle, ButtonCallback  );
         glfwSetScrollCallback        (handle, ScrollCallback  );
         glfwSetCursorPosCallback     (handle, CursorCallback  );
         glfwSetDropCallback          (handle, DropFileCallback);
     }
-
     Window::~Window()
     {
         glfwDestroyWindow(handle);
         handle = nullptr;
+        
+        
         glfwTerminate();
     }
     
     bool Window::Update()
     {
+        pressedKeys    .clear();
+        releasedkeys   .clear();
+        pressedChars   .clear();
+        
+        pressedButtons .clear();
+        releasedButtons.clear();
+        scrollWheel = 0;
+        
+        droppedFiles.clear();
+        
         glfwMakeContextCurrent(handle);
-        glfwSwapBuffers(handle);
-        glfwPollEvents();
+        glfwSwapBuffers       (handle);
+        glfwPollEvents        (      );
         
         return !glfwWindowShouldClose(handle);
     }
@@ -203,12 +208,12 @@ namespace Engine
         Window* _window = static_cast<Window*>(glfwGetWindowUserPointer(_handle));
         _window->size = uvec2(u32(_x), u32(_y));
     }
-    void Window::CloseCallback   (GLFWwindow* _handle)
+    void Window::CloseCallback   (GLFWwindow* _handle                )
     {
         Window* _window = static_cast<Window*>(glfwGetWindowUserPointer(_handle));
         _window->closed = true;
     }
-    void Window::FocusCallback   (GLFWwindow* _handle, i32 _focused)
+    void Window::FocusCallback   (GLFWwindow* _handle, i32 _focused  )
     {
         Window* _window = static_cast<Window*>(glfwGetWindowUserPointer(_handle));
         _window->focused = _focused;
@@ -223,28 +228,55 @@ namespace Engine
         Window* _window = static_cast<Window*>(glfwGetWindowUserPointer(_handle));
         _window->maximized = _maximized;
     }
-    void Window::KeyCallback     (GLFWwindow*, i32, i32, i32, i32)
+    void Window::KeyCallback     (GLFWwindow* _handle, i32 _key      , i32, i32 _action, i32)
     {
-        
+        Window* _window = static_cast<Window*>(glfwGetWindowUserPointer(_handle));
+        if      (_action == GLFW_PRESS  )
+        {
+            _window->pressedKeys .insert(_key);
+            _window->heldKeys    .insert(_key);
+        }
+        else if (_action == GLFW_RELEASE)
+        {
+            _window->heldKeys    .erase (_key);
+            _window->releasedkeys.insert(_key);
+        }
     }
-    void Window::CharCallback    (GLFWwindow*, u32, i32)
+    void Window::CharCallback    (GLFWwindow* _handle, u32 _character                       )
     {
-        
+        Window* _window = static_cast<Window*>(glfwGetWindowUserPointer(_handle));
+        _window->pressedChars.push_back(char32_t(_character));
     }
-    void Window::ButtonCallback  (GLFWwindow*, i32, i32, i32)
+    void Window::ButtonCallback  (GLFWwindow* _handle, i32 _button   ,      i32 _action, i32)
     {
-        
+        Window* _window = static_cast<Window*>(glfwGetWindowUserPointer(_handle));
+        if      (_action == GLFW_PRESS  )
+        {
+            _window->pressedButtons .insert(_button);
+            _window->heldButtons    .insert(_button);
+        }
+        else if (_action == GLFW_RELEASE)
+        {
+            _window->heldButtons    .erase (_button);
+            _window->releasedButtons.insert(_button);
+        }
     }
-    void Window::ScrollCallback  (GLFWwindow*, d64, d64)
+    void Window::ScrollCallback  (GLFWwindow* _handle, d64    , d64 _y)
     {
-        
+        Window* _window = static_cast<Window*>(glfwGetWindowUserPointer(_handle));
+        _window->scrollWheel = (_y > 0) - (_y < 0);
     }
-    void Window::CursorCallback  (GLFWwindow*, d64, d64)
+    void Window::CursorCallback  (GLFWwindow* _handle, d64  _x, d64 _y)
     {
-        
+        Window* _window = static_cast<Window*>(glfwGetWindowUserPointer(_handle));
+        _window->cursorPosition = ivec2(i32(_x), i32(_y));
     }
-    void Window::DropFileCallback(GLFWwindow*, i32, const char*[])
+    void Window::DropFileCallback(GLFWwindow* _handle, i32 _pathCount, const char* _paths[])
     {
-        
+        Window* _window = static_cast<Window*>(glfwGetWindowUserPointer(_handle));
+        for (int _i = 0; _i < _pathCount; _i++)
+        {
+            _window->droppedFiles.push_back(str(_paths[_i]));
+        }
     }
 }
