@@ -25,11 +25,11 @@ elseif ($config -ne "Debug" -and $config -ne "Release")
     exit 1
 }
 
-cmake -B ./build
+cmake -B ./build -G "Ninja" -DCMAKE_CXX_COMPILER=g++ "-DCMAKE_BUILD_TYPE=$config"
 Error "Project failed to build."
 
-cmake --build ./build --config $config
+ninja -C ./build
 Error "Project failed to link."
 
-& "./build/$config/vr-engine"
+& "./bin/$config/vr-engine.exe"
 Error "Project failed to run."
