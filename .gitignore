@@ -1,4 +1,3 @@
 build/
 bin/
-.cache/
-__cmake_systeminformation
+.zed/

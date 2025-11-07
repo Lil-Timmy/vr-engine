@@ -1,6 +1,4 @@
-#include <iostream>
-
-import Test;
+import vec2;
 
 
 
@@ -11,7 +9,5 @@ import Test;
 
 int main()
 {
-    std::cout << "Hello, world!\n";
-    
     return 0;
 }
