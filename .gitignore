@@ -1,3 +1,4 @@
-#build/
+build/
 bin/
 .cache/
+__cmake_systeminformation

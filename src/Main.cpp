@@ -1,3 +1,5 @@
+#include <iostream>
+
 import Test;
 
 
@@ -9,6 +11,7 @@ import Test;
 
 int main()
 {
+    std::cout << "Hello, world!\n";
     
     return 0;
 }
